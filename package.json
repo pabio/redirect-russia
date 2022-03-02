@@ -1,0 +1,31 @@
+{
+  "name": "redirect-russia",
+  "version": "1.0.0",
+  "description": "Redirect Russian traffic to support Ukraine",
+  "main": "index.js",
+  "source": "index.html",
+  "browserslist": "> 0.5%, last 2 versions, not dead",
+  "scripts": {
+    "start": "parcel",
+    "build": "parcel build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pabio/redirect-russia.git"
+  },
+  "keywords": [
+    "russia",
+    "ukraine",
+    "javascript"
+  ],
+  "author": "Anand Chowdhary <mail@anandchowdhary.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pabio/redirect-russia/issues"
+  },
+  "homepage": "https://redirectrussia.org",
+  "devDependencies": {
+    "parcel": "^2.3.2"
+  }
+}
