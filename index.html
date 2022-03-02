@@ -3,11 +3,113 @@
   <head>
     <meta charset="utf-8" />
     <title>Redirect Russia</title>
+    <link rel="icon" type="image/png" href="/logo.png" />
     <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
+    <img alt="" src="/logo.png" class="logo" />
     <h1>Redirect Russia</h1>
     <p>Redirect Russian traffic away from your website to support Ukraine.</p>
-    <script src="v1.ts" data-detection="ip-only"></script>
+    <p>Copy and paste the following line on your website 👇</p>
+    <pre><code>&lt;script src="https://redirectrussia.org/v1.js" async&gt;&lt;/script&gt;</code></pre>
+    <form>
+      <details>
+        <summary>Advanced configuration</summary>
+        <form>
+          <fieldset>
+            <legend>Where should users be redirected to?</legend>
+            <label>
+              <input type="radio" value="" name="redirect-url" checked />
+              <span>Redirect Russia</span>
+            </label>
+            <label>
+              <input
+                type="radio"
+                value="help-ukraine-win"
+                name="redirect-url"
+              />
+              <span>Help Ukraine Win</span>
+            </label>
+            <label>
+              <input type="radio" value="other" name="redirect-url" />
+              <span>Custom URL</span>
+            </label>
+          </fieldset>
+          <label class="other-url-label" hidden>
+            <span>Custom URL</span>
+            <input type="url" name="other-url" />
+          </label>
+          <fieldset>
+            <legend>Location detection method</legend>
+            <label>
+              <input
+                type="radio"
+                name="detection"
+                value="timezone-then-ip"
+                checked
+              />
+              <span>Timezone + IP geolocation</span>
+            </label>
+            <label>
+              <input type="radio" name="detection" value="ip-only" />
+              <span>IP geolocation</span>
+            </label>
+          </fieldset>
+          <output>
+            <p>Copy and paste the following</p>
+            <pre><code id="result">&lt;script src="https://redirectrussia.org/v1.js" async&gt;&lt;/script&gt;</code></pre>
+          </output>
+        </form>
+      </details>
+    </form>
+    <script>
+      window.addEventListener("DOMContentLoaded", (event) => {
+        const redirectUrls = document.querySelectorAll(
+          'input[name="redirect-url"]'
+        );
+        const detectionMethods = document.querySelectorAll(
+          'input[name="detection"]'
+        );
+        const otherLabel = document.querySelector(".other-url-label");
+        const result = document.querySelector("#result");
+
+        let redirectUrl = "default";
+        let otherUrl = "";
+        let detection = "timezone-then-ip";
+
+        const update = () => {
+          if (redirectUrl === "other") otherLabel.removeAttribute("hidden");
+          else otherLabel.setAttribute("hidden", "hidden");
+
+          result.innerHTML = `&lt;script src="https://redirectrussia.org/v1.js" data-redirect-url="${
+            redirectUrl === "other"
+              ? otherUrl
+              : redirectUrl === "help-ukraine-win"
+              ? "https://helpukrainewin.org"
+              : redirectUrl
+          }" data-detection="${detection}" async&gt;&lt;/script&gt;`;
+        };
+
+        redirectUrls.forEach((input) =>
+          input.addEventListener("change", (event) => {
+            redirectUrl = event.target.value;
+            update();
+          })
+        );
+
+        detectionMethods.forEach((input) =>
+          input.addEventListener("change", (event) => {
+            detection = event.target.value;
+            update();
+          })
+        );
+
+        otherLabel.querySelector("input").addEventListener("input", (event) => {
+          otherUrl = event.target.value;
+          update();
+        });
+      });
+    </script>
+    <script src="v1.ts" data-detection="ip-only" async></script>
   </body>
 </html>

@@ -12,6 +12,20 @@ body::after {
   left: 0;
   width: 100%;
   top: 0;
-  background: linear-gradient(#0057b7 49.9%, #ffd700 50%);
+  background: linear-gradient(#6993ff 49.9%, #fcff63 50%);
   height: 1rem;
+}
+
+pre code {
+  display: block;
+  padding: 1rem;
+  cursor: text;
+  user-select: all;
+  background-color: #eee;
+  border-radius: 0.25rem;
+  overflow-x: auto;
+}
+
+.logo {
+  height: 5rem;
 }

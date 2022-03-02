@@ -12,13 +12,38 @@ const redirectRussia = async () => {
   const currentScript = document.currentScript;
   if (!currentScript) return;
 
-  // Find the preferred method of location detection
-  const detectionMethod = currentScript.getAttribute("data-detection");
-
   // Find the redirection URL
   const REDIRECT_URL =
     currentScript.getAttribute("data-redirect-url") ??
     `https://redirectrussia.org?utm_source=${document.domain}&utm_medium=redirect&utm_campaign=js_snippet`;
+
+  const redirect = () => {
+    try {
+      // Dispatch a custom event
+      // To listen to this event, you can add the following JavaScript:
+      // document.addEventListener("redirect-russia", (event) => { /* */ }, false);
+      const event = new Event("redirect-russia");
+      document.dispatchEvent(event);
+
+      // Set in session storage so we don't have to compute again
+      window.sessionStorage.setItem("russia-redirect", "1");
+    } catch (error) {
+      // Ignore errors in storage or events
+    }
+    window.location.assign(REDIRECT_URL);
+  };
+
+  try {
+    const shouldRedirect = window.sessionStorage.getItem("russia-redirect");
+    if (shouldRedirect === "1") return redirect();
+  } catch (error) {
+    // Ignore storage access errors
+  }
+
+  // Find the preferred method of location detection
+  const detectionMethod =
+    currentScript.getAttribute("data-detection") ??
+    DetectionMethod["timezone-then-ip"];
 
   // If we find an unsupported method, throw an error
   if (
@@ -95,13 +120,13 @@ const redirectRussia = async () => {
     // Ignore errors if we're unable to fetch
   }
 
-  if (countryCode === "RU") {
-    // Dispatch a custom event
-    // To listen to this event, you can add the following JavaScript:
-    // document.addEventListener("redirect-russia", (event) => { /* */ }, false);
-    const event = new Event("redirect-russia");
-    document.dispatchEvent(event);
-    window.location.assign(REDIRECT_URL);
+  if (countryCode === "RU") return redirect();
+
+  try {
+    // Set in session storage so we don't have to compute again
+    window.sessionStorage.setItem("russia-redirect", "0");
+  } catch (error) {
+    // Ignore storage access errors
   }
 };
 

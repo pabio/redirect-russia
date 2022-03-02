@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Redirect Russian traffic to support Ukraine",
   "scripts": {
-    "watch-site": "parcel index.html",
+    "watch-site": "parcel serve index.html",
     "build-site": "parcel build index.html",
     "build-script": "parcel build v1.ts",
     "build": "npm run build-site && npm run build-script",
