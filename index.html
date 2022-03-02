@@ -7,63 +7,88 @@
     <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
-    <img alt="" src="/logo.png" class="logo" />
-    <h1>Redirect Russia</h1>
-    <p>Redirect Russian traffic away from your website to support Ukraine.</p>
-    <p>Copy and paste the following line on your website 👇</p>
-    <pre><code>&lt;script src="https://redirectrussia.org/v1.js" async&gt;&lt;/script&gt;</code></pre>
-    <form>
-      <details>
-        <summary>Advanced configuration</summary>
-        <form>
-          <fieldset>
-            <legend>Where should users be redirected to?</legend>
-            <label>
-              <input type="radio" value="" name="redirect-url" checked />
-              <span>Redirect Russia</span>
-            </label>
-            <label>
-              <input
-                type="radio"
-                value="help-ukraine-win"
-                name="redirect-url"
-              />
-              <span>Help Ukraine Win</span>
-            </label>
-            <label>
-              <input type="radio" value="other" name="redirect-url" />
+    <div class="hero" hidden>
+      <div class="container">
+        <h2>This site is not available in Russia.</h2>
+        <p>
+          Due to the Russia-initiated war in Ukraine, we have decided to take
+          part in the sanctions against Russia and have disabled our services
+          for visitors from Russia.
+        </p>
+        <p>
+          <a href="https://helpukrainewin.org">
+            Help end the war and support Ukraine &rarr;
+          </a>
+        </p>
+      </div>
+    </div>
+    <main class="container">
+      <img alt="" src="/logo.png" class="logo" />
+      <h1>Redirect Russia</h1>
+      <p>Redirect Russian traffic away from your website to support Ukraine.</p>
+      <p>Copy and paste the following line on your website 👇</p>
+      <pre><code>&lt;script src="https://redirectrussia.org/v1.js" async&gt;&lt;/script&gt;</code></pre>
+      <form onsubmit="return false">
+        <details>
+          <summary>Advanced configuration</summary>
+          <form>
+            <fieldset>
+              <legend>Where should users be redirected to?</legend>
+              <label>
+                <input type="radio" value="" name="redirect-url" checked />
+                <span>Redirect Russia</span>
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  value="help-ukraine-win"
+                  name="redirect-url"
+                />
+                <span>Help Ukraine Win</span>
+              </label>
+              <label>
+                <input type="radio" value="other" name="redirect-url" />
+                <span>Custom URL</span>
+              </label>
+            </fieldset>
+            <label class="other-url-label" hidden>
               <span>Custom URL</span>
+              <input type="url" name="other-url" value="https://" />
             </label>
-          </fieldset>
-          <label class="other-url-label" hidden>
-            <span>Custom URL</span>
-            <input type="url" name="other-url" />
-          </label>
-          <fieldset>
-            <legend>Location detection method</legend>
-            <label>
-              <input
-                type="radio"
-                name="detection"
-                value="timezone-then-ip"
-                checked
-              />
-              <span>Timezone + IP geolocation</span>
-            </label>
-            <label>
-              <input type="radio" name="detection" value="ip-only" />
-              <span>IP geolocation</span>
-            </label>
-          </fieldset>
-          <output>
-            <p>Copy and paste the following</p>
-            <pre><code id="result">&lt;script src="https://redirectrussia.org/v1.js" async&gt;&lt;/script&gt;</code></pre>
-          </output>
-        </form>
-      </details>
-    </form>
+            <fieldset>
+              <legend>Location detection method</legend>
+              <label>
+                <input
+                  type="radio"
+                  name="detection"
+                  value="timezone-then-ip"
+                  checked
+                />
+                <span>Timezone + IP geolocation</span>
+              </label>
+              <label>
+                <input type="radio" name="detection" value="ip-only" />
+                <span>IP geolocation</span>
+              </label>
+            </fieldset>
+            <output>
+              <p>Copy and paste the following</p>
+              <pre><code id="result">&lt;script src="https://redirectrussia.org/v1.js" async&gt;&lt;/script&gt;</code></pre>
+            </output>
+          </form>
+        </details>
+      </form>
+    </main>
     <script>
       window.addEventListener("DOMContentLoaded", (event) => {
+        const searchParams = new URLSearchParams(window.location.search);
+        if (searchParams.has("utm_source")) {
+          document.querySelector(".hero").removeAttribute("hidden");
+          document.querySelector(".hero h2").innerHTML = document
+            .querySelector(".hero h2")
+            .innerHTML.replace("This site", searchParams.get("utm_source"));
+        }
+
         const redirectUrls = document.querySelectorAll(
           'input[name="redirect-url"]'
         );
