@@ -49,7 +49,14 @@
               <legend>Where should users be redirected to?</legend>
               <label>
                 <input type="radio" value="" name="redirect-url" checked />
-                <span>Redirect Russia</span>
+                <span>
+                  Redirect Russia landing page (<a
+                    href="https://redirectrussia.org/?ref=example.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >example</a
+                  >)
+                </span>
               </label>
               <label>
                 <input type="radio" value="other" name="redirect-url" />
@@ -96,10 +103,32 @@
               <span>Custom URL</span>
               <input type="url" name="other-url" value="https://" />
             </label>
+            <fieldset>
+              <legend>Show domain on redirect</legend>
+              <label>
+                <input type="radio" name="domain" value="yes" checked />
+                <span>Yes</span>
+              </label>
+              <label>
+                <input type="radio" name="domain" value="no" />
+                <span>No</span>
+              </label>
+              <p>
+                If your site is example.com, the redirect page will say
+                "example.com is not available in Russia" if you choose to show
+                the domain (we'll add a <code>?ref</code> query parameter in the
+                redirect URL). If you disable this, the message will be "This
+                site is not available in Russia".
+              </p>
+            </fieldset>
           </form>
         </details>
         <output>
-          <p>Copy and paste the following line on your website 👇</p>
+          <p>
+            <strong>
+              Copy and paste the following line on your website 👇
+            </strong>
+          </p>
           <pre><code id="result">&lt;script src="https://redirectrussia.org/v1.js" async&gt;&lt;/script&gt;</code></pre>
         </output>
       </form>
@@ -146,6 +175,7 @@
           'input[name="redirect-url"]'
         );
         const apiUrls = document.querySelectorAll('input[name="geolocation"]');
+        const domainShow = document.querySelectorAll('input[name="domain"]');
         const detectionMethods = document.querySelectorAll(
           'input[name="detection"]'
         );
@@ -158,6 +188,7 @@
         let detection = "timezone-then-ip";
         let apiUrl = "https://api.country.is";
         let otherApiUrl = "";
+        let showDomain = "yes";
 
         const update = () => {
           if (redirectUrl === "other") otherRedirect.removeAttribute("hidden");
@@ -174,6 +205,8 @@
             apiUrl === "other" && otherApiUrl
               ? ` data-geolocation-api="${otherApiUrl}"`
               : ""
+          }${
+            showDomain === "no" ? ` data-hide-domain="hide"` : ""
           } async&gt;&lt;/script&gt;`;
         };
 
@@ -187,6 +220,13 @@
         apiUrls.forEach((input) =>
           input.addEventListener("change", (event) => {
             apiUrl = event.target.value;
+            update();
+          })
+        );
+
+        domainShow.forEach((input) =>
+          input.addEventListener("change", (event) => {
+            showDomain = event.target.value;
             update();
           })
         );
@@ -211,6 +251,18 @@
         });
       });
     </script>
-    <script src="v1.ts" data-detection="ip-only" async></script>
+    <script async src="v1.ts" data-detection="ip-only"></script>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-BCFFXV96LB"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-BCFFXV96LB");
+    </script>
   </body>
 </html>

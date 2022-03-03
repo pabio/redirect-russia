@@ -15,7 +15,11 @@ const redirectRussia = async () => {
   // Find the redirection URL
   const REDIRECT_URL =
     currentScript.getAttribute("data-redirect-url") ??
-    `https://redirectrussia.org/?from=${document.domain}`;
+    `https://redirectrussia.org/${
+      currentScript.getAttribute("data-hide-domain") === "hide"
+        ? ""
+        : `?from=${document.domain}`
+    }`;
 
   const redirect = () => {
     try {

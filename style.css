@@ -25,7 +25,7 @@ img {
   font-size: 150%;
 }
 
-.hero a {
+a {
   color: inherit;
   font-weight: bold;
 }
@@ -88,7 +88,7 @@ input[type="url"] {
 
 footer {
   text-align: center;
-  color: #aaa;
+  color: #999;
   margin-top: 10rem;
   line-height: 1;
   display: flex;
@@ -107,4 +107,24 @@ footer img {
     float: right;
     margin-left: 2rem;
   }
+}
+
+fieldset p {
+  font-size: 85%;
+  margin-top: 0.5rem;
+  color: #999;
+}
+
+p code {
+  background-color: #eee;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.2rem;
+  color: #777;
+}
+
+code {
+  font-size: 90%;
+  font-family: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
+    "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
+    "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
 }
