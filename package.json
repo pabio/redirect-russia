@@ -5,7 +5,7 @@
   "scripts": {
     "watch-site": "parcel serve index.html",
     "build-site": "parcel build index.html",
-    "build-script": "parcel build v1.ts",
+    "build-script": "esbuild v1.ts --outfile=dist/v1.js --bundle --minify --sourcemap --target=es5",
     "build": "npm run build-site && npm run build-script && cp -r img dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -25,6 +25,7 @@
   },
   "homepage": "https://redirectrussia.org",
   "devDependencies": {
+    "esbuild": "^0.14.24",
     "parcel": "^2.3.2"
   }
 }
