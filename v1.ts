@@ -123,7 +123,7 @@ const redirectRussia = async () => {
       country: string;
       ip: string;
     };
-    countryCode = json.country;
+    countryCode = json.country.toLowerCase();
   } catch (error) {
     // Ignore errors if we're unable to fetch
   }

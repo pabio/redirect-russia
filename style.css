@@ -66,8 +66,10 @@ fieldset legend {
 }
 
 .other-label {
-  margin-top: 0.75rem;
   display: block;
+}
+.other-label span {
+  font-weight: 500;
 }
 .other-label[hidden] {
   display: none;

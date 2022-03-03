@@ -62,6 +62,11 @@
                 <input type="radio" value="other" name="redirect-url" />
                 <span>Custom URL</span>
               </label>
+              <p>
+                We redirect your users to a landing page which tells them that
+                your site is unavailable in Russia and what they can do to help
+                Ukraine. You can also set any custom redirection URL.
+              </p>
             </fieldset>
             <label class="redirect-other other-label" hidden>
               <span>Custom URL</span>
@@ -76,12 +81,18 @@
                   value="timezone-then-ip"
                   checked
                 />
-                <span>Timezone + IP geolocation</span>
+                <span>Check for timezone, then IP address</span>
               </label>
               <label>
                 <input type="radio" name="detection" value="ip-only" />
-                <span>IP geolocation</span>
+                <span>Only check IP address</span>
               </label>
+              <p>
+                In order to save on network requests, we only query an IP
+                geolocation service if the user's date/time settings are in
+                Russia; if you disable this, you may be rate limited by your
+                geolocation API service.
+              </p>
             </fieldset>
             <fieldset>
               <legend>IP geolocation API</legend>
@@ -98,6 +109,11 @@
                 <input type="radio" name="geolocation" value="other" />
                 <span>Custom endpoint</span>
               </label>
+              <p>
+                By default, we use Country.is; but you can use any IP
+                geolocation endpoint that returns the "country" field with an
+                ISO 3166-1 alpha-2 country code.
+              </p>
             </fieldset>
             <label class="ip-api-other other-label" hidden>
               <span>Custom URL</span>
@@ -140,7 +156,13 @@
       />
       <p>
         When someone from Russia visits your website, they'll be redirected to a
-        page that looks like this.
+        page that looks
+        <a
+          href="https://redirectrussia.org/?ref=example.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          >like this</a
+        >.
       </p>
       <p>
         They can find information about how they can help Ukraine and make
