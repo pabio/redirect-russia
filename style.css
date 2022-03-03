@@ -6,14 +6,14 @@ body {
   line-height: 1.5;
 }
 
+img {
+  max-width: 100%;
+}
+
 .container {
   max-width: 720px;
   margin: 0 auto;
   padding: 10rem 2rem;
-}
-
-.hero {
-  background-color: #fcff63;
 }
 
 .hero h2 {
@@ -30,15 +30,15 @@ body {
   font-weight: bold;
 }
 
-/* body::after {
+.hero::after {
   content: "";
   position: fixed;
   left: 0;
   width: 100%;
   top: 0;
   background: linear-gradient(#6993ff 49.9%, #fcff63 50%);
-  height: 1rem;
-} */
+  height: 5rem;
+}
 
 pre code {
   display: block;
@@ -84,4 +84,27 @@ input[type="url"] {
 
 :root {
   accent-color: #6993ff;
+}
+
+footer {
+  text-align: center;
+  color: #aaa;
+  margin-top: 10rem;
+  line-height: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+footer img {
+  margin-left: 0.5rem;
+  height: 1.25rem;
+}
+
+@media screen and (min-width: 800px) {
+  .screenshot {
+    width: 50%;
+    float: right;
+    margin-left: 2rem;
+  }
 }

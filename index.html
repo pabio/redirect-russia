@@ -3,15 +3,30 @@
   <head>
     <meta charset="utf-8" />
     <title>Redirect Russia</title>
-    <link rel="icon" type="image/png" href="/logo.png" />
+    <link rel="icon" type="image/png" href="/img/logo.png" />
     <link rel="stylesheet" href="/style.css" />
+    <meta property="og:title" content="Redirect Russia" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://redirectrussia.org/img/banner.png"
+    />
+    <meta property="og:url" content="https://redirectrussia.org" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      property="og:description"
+      content="Redirect Russian traffic away from your website to support Ukraine."
+    />
+    <meta property="og:site_name" content="Redirect Russia" />
+    <meta name="twitter:image:alt" content="Redirect Russia logo" />
+    <link rel="canonical" href="https://redirectrussia.org" />
   </head>
   <body>
     <div class="hero" hidden>
       <div class="container">
         <h2>This site is not available in Russia.</h2>
         <p>
-          Due to the Russia-initiated war in Ukraine, we have decided to take
+          Due to the Putin-initiated war in Ukraine, we have decided to take
           part in the sanctions against Russia and have disabled our services
           for visitors from Russia.
         </p>
@@ -23,11 +38,9 @@
       </div>
     </div>
     <main class="container">
-      <img alt="" src="/logo.png" class="logo" />
+      <img alt="" src="/img/logo.png" class="logo" />
       <h1>Redirect Russia</h1>
       <p>Redirect Russian traffic away from your website to support Ukraine.</p>
-      <p>Copy and paste the following line on your website 👇</p>
-      <pre><code>&lt;script src="https://redirectrussia.org/v1.js" async&gt;&lt;/script&gt;</code></pre>
       <form onsubmit="return false">
         <details>
           <summary>Advanced configuration</summary>
@@ -37,14 +50,6 @@
               <label>
                 <input type="radio" value="" name="redirect-url" checked />
                 <span>Redirect Russia</span>
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  value="help-ukraine-win"
-                  name="redirect-url"
-                />
-                <span>Help Ukraine Win</span>
               </label>
               <label>
                 <input type="radio" value="other" name="redirect-url" />
@@ -71,19 +76,79 @@
                 <span>IP geolocation</span>
               </label>
             </fieldset>
-            <output>
-              <p>Copy and paste the following</p>
-              <pre><code id="result">&lt;script src="https://redirectrussia.org/v1.js" async&gt;&lt;/script&gt;</code></pre>
-            </output>
+            <fieldset>
+              <legend>IP geolocation API</legend>
+              <label>
+                <input
+                  type="radio"
+                  name="geolocation"
+                  value="https://api.country.is"
+                  checked
+                />
+                <span>Country.is</span>
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="geolocation"
+                  value="https://ipinfo.io/json"
+                />
+                <span>IpInfo.io</span>
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="geolocation"
+                  value="https://ipapi.co/json"
+                />
+                <span>IpApi.co</span>
+              </label>
+              <label>
+                <input type="radio" name="geolocation" value="custom" />
+                <span>Custom endpoint</span>
+              </label>
+            </fieldset>
           </form>
         </details>
+        <output>
+          <p>Copy and paste the following line on your website 👇</p>
+          <pre><code id="result">&lt;script src="https://redirectrussia.org/v1.js" async&gt;&lt;/script&gt;</code></pre>
+        </output>
       </form>
+      <h2>How it works</h2>
+      <img
+        alt="Screenshot of redirect page"
+        src="/img/screenshot.png"
+        class="screenshot"
+      />
+      <p>
+        When someone from Russia visits your website, they'll be redirected to a
+        page that looks like this.
+      </p>
+      <p>
+        They can find information about how they can help Ukraine and make
+        change from within Russia.
+      </p>
+      <footer>
+        <p>
+          From your friends at
+          <a
+            href="https://pabio.com/?utm_source=redirectrussia.org&utm_medium=footer-logo"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img alt="Pabio" src="https://pabio.com/logo.svg" />
+          </a>
+        </p>
+      </footer>
     </main>
     <script>
       window.addEventListener("DOMContentLoaded", (event) => {
         const searchParams = new URLSearchParams(window.location.search);
         if (searchParams.has("utm_source")) {
           document.querySelector(".hero").removeAttribute("hidden");
+          document.querySelector("main").setAttribute("hidden", "hidden");
+          document.querySelector("body").style.backgroundColor = "#fcff63";
           document.querySelector(".hero h2").innerHTML = document
             .querySelector(".hero h2")
             .innerHTML.replace("This site", searchParams.get("utm_source"));
