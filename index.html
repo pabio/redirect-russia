@@ -56,7 +56,7 @@
                 <span>Custom URL</span>
               </label>
             </fieldset>
-            <label class="other-url-label" hidden>
+            <label class="redirect-other other-label" hidden>
               <span>Custom URL</span>
               <input type="url" name="other-url" value="https://" />
             </label>
@@ -88,26 +88,14 @@
                 <span>Country.is</span>
               </label>
               <label>
-                <input
-                  type="radio"
-                  name="geolocation"
-                  value="https://ipinfo.io/json"
-                />
-                <span>IpInfo.io</span>
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="geolocation"
-                  value="https://ipapi.co/json"
-                />
-                <span>IpApi.co</span>
-              </label>
-              <label>
-                <input type="radio" name="geolocation" value="custom" />
+                <input type="radio" name="geolocation" value="other" />
                 <span>Custom endpoint</span>
               </label>
             </fieldset>
+            <label class="ip-api-other other-label" hidden>
+              <span>Custom URL</span>
+              <input type="url" name="other-url" value="https://" />
+            </label>
           </form>
         </details>
         <output>
@@ -145,44 +133,60 @@
     <script>
       window.addEventListener("DOMContentLoaded", (event) => {
         const searchParams = new URLSearchParams(window.location.search);
-        if (searchParams.has("utm_source")) {
+        if (searchParams.has("from")) {
           document.querySelector(".hero").removeAttribute("hidden");
           document.querySelector("main").setAttribute("hidden", "hidden");
           document.querySelector("body").style.backgroundColor = "#fcff63";
           document.querySelector(".hero h2").innerHTML = document
             .querySelector(".hero h2")
-            .innerHTML.replace("This site", searchParams.get("utm_source"));
+            .innerHTML.replace("This site", searchParams.get("from"));
         }
 
         const redirectUrls = document.querySelectorAll(
           'input[name="redirect-url"]'
         );
+        const apiUrls = document.querySelectorAll('input[name="geolocation"]');
         const detectionMethods = document.querySelectorAll(
           'input[name="detection"]'
         );
-        const otherLabel = document.querySelector(".other-url-label");
+        const otherRedirect = document.querySelector(".redirect-other");
+        const otherApi = document.querySelector(".ip-api-other");
         const result = document.querySelector("#result");
 
         let redirectUrl = "default";
-        let otherUrl = "";
+        let otherRedirectUrl = "";
         let detection = "timezone-then-ip";
+        let apiUrl = "https://api.country.is";
+        let otherApiUrl = "";
 
         const update = () => {
-          if (redirectUrl === "other") otherLabel.removeAttribute("hidden");
-          else otherLabel.setAttribute("hidden", "hidden");
+          if (redirectUrl === "other") otherRedirect.removeAttribute("hidden");
+          else otherRedirect.setAttribute("hidden", "hidden");
 
-          result.innerHTML = `&lt;script src="https://redirectrussia.org/v1.js" data-redirect-url="${
-            redirectUrl === "other"
-              ? otherUrl
-              : redirectUrl === "help-ukraine-win"
-              ? "https://helpukrainewin.org"
-              : redirectUrl
-          }" data-detection="${detection}" async&gt;&lt;/script&gt;`;
+          if (apiUrl === "other") otherApi.removeAttribute("hidden");
+          else otherApi.setAttribute("hidden", "hidden");
+
+          result.innerHTML = `&lt;script src="https://redirectrussia.org/v1.js"${
+            redirectUrl === "other" && otherRedirectUrl
+              ? ` data-redirect-url="${otherRedirectUrl}"`
+              : ""
+          }${detection === "ip-only" ? ` data-detection="ip-only"` : ""}${
+            apiUrl === "other" && otherApiUrl
+              ? ` data-geolocation-api="${otherApiUrl}"`
+              : ""
+          } async&gt;&lt;/script&gt;`;
         };
 
         redirectUrls.forEach((input) =>
           input.addEventListener("change", (event) => {
             redirectUrl = event.target.value;
+            update();
+          })
+        );
+
+        apiUrls.forEach((input) =>
+          input.addEventListener("change", (event) => {
+            apiUrl = event.target.value;
             update();
           })
         );
@@ -194,8 +198,15 @@
           })
         );
 
-        otherLabel.querySelector("input").addEventListener("input", (event) => {
-          otherUrl = event.target.value;
+        otherRedirect
+          .querySelector("input")
+          .addEventListener("input", (event) => {
+            otherRedirectUrl = event.target.value;
+            update();
+          });
+
+        otherApi.querySelector("input").addEventListener("input", (event) => {
+          otherApiUrl = event.target.value;
           update();
         });
       });

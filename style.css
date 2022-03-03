@@ -65,11 +65,11 @@ fieldset legend {
   font-weight: 500;
 }
 
-.other-url-label {
+.other-label {
   margin-top: 0.75rem;
   display: block;
 }
-.other-url-label[hidden] {
+.other-label[hidden] {
   display: none;
 }
 

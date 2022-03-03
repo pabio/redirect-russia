@@ -15,7 +15,7 @@ const redirectRussia = async () => {
   // Find the redirection URL
   const REDIRECT_URL =
     currentScript.getAttribute("data-redirect-url") ??
-    `https://redirectrussia.org?utm_source=${document.domain}&utm_medium=redirect&utm_campaign=js_snippet`;
+    `https://redirectrussia.org/?from=${document.domain}`;
 
   const redirect = () => {
     try {
@@ -106,10 +106,14 @@ const redirectRussia = async () => {
 
   if (!mayBeRussian) return;
 
+  const geolocationEndpoint =
+    currentScript.getAttribute("data-geolocation-api") ??
+    "https://api.country.is";
+
   let countryCode: string | undefined = undefined; // Uppercase country code, e.g., "UA" or "DE"
   // Make IP geolocation request
   try {
-    const response = await fetch("https://api.country.is");
+    const response = await fetch(geolocationEndpoint);
     if (!response.ok) throw new Error("Response not OK");
     const json = (await response.json()) as {
       country: string;
