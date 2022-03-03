@@ -39,12 +39,17 @@
       </div>
     </div>
     <main class="container">
-      <img alt="" src="/img/logo.png" class="logo" />
-      <h1>Redirect Russia</h1>
-      <p>Redirect Russian traffic away from your website to support Ukraine.</p>
+      <header>
+        <img alt="" src="/img/logo.png" class="logo" />
+        <h1>Redirect Russia</h1>
+        <p class="lead">
+          Redirect Russian traffic away from your website to support Ukraine.
+        </p>
+        <p>Copy and paste this line to your website 👇</p>
+      </header>
       <form onsubmit="return false">
         <details>
-          <summary>Advanced configuration</summary>
+          <summary><span>Advanced configuration</span></summary>
           <form>
             <fieldset>
               <legend>Where should users be redirected to?</legend>
@@ -134,18 +139,14 @@
                 If your site is example.com, the redirect page will say
                 "example.com is not available in Russia" if you choose to show
                 the domain (we'll add a <code>?from</code> query parameter in
-                the redirect URL). If you disable this, the message will be
-                "This site is not available in Russia".
+                the redirect URL, meaning that we can track where the visitor
+                came from). If you disable this, the message will be "This site
+                is not available in Russia".
               </p>
             </fieldset>
           </form>
         </details>
         <output>
-          <p>
-            <strong>
-              Copy and paste the following line on your website 👇
-            </strong>
-          </p>
           <pre><code id="result">&lt;script src="https://redirectrussia.org/v1.js" async&gt;&lt;/script&gt;</code></pre>
         </output>
       </form>
@@ -168,6 +169,32 @@
       <p>
         They can find information about how they can help Ukraine and make
         change from within Russia.
+      </p>
+      <p>
+        The script is asynchronous, meaning that it shouldn't affect the page
+        load time, and it uses a combination of timezone and IP address
+        geolocation to identify traffic from Russia, so we don't make too many
+        IP geolocation API requests.
+      </p>
+      <h2>API</h2>
+      <p>
+        You can configure the redirect URL, location detection method, IP
+        geolocation API, and whether or not to add your domain to the redirect
+        URL using the configuration generator above.
+      </p>
+      <p>
+        We also emit an event <code>redirect-russia</code> which you can listen
+        to, for example to set up analytics:
+      </p>
+      <pre><code>document.addEventListener("redirect-russia", (event) => { /* */ })</code></pre>
+      <p>
+        The code is open source and available on
+        <a
+          href="https://github.com/pabio/redirect-russia"
+          target="_blank"
+          rel="noopener noreferrer"
+          >GitHub</a
+        >.
       </p>
       <footer>
         <p>

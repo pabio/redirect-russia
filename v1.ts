@@ -17,7 +17,7 @@ var redirectRussia = () => {
     currentScript.getAttribute("data-redirect-url") ??
     `https://redirectrussia.org/${
       currentScript.getAttribute("data-hide-domain") === "hide"
-        ? ""
+        ? "?from=unknown"
         : `?from=${document.domain}`
     }`;
 

@@ -3,10 +3,12 @@ window.addEventListener("DOMContentLoaded", () => {
   if (searchParams.has("from")) {
     document.querySelector(".hero").removeAttribute("hidden");
     document.querySelector("main").setAttribute("hidden", "hidden");
-    document.querySelector("body").style.backgroundColor = "#fcff63";
-    document.querySelector(".hero h2").innerHTML = document
-      .querySelector(".hero h2")
-      .innerHTML.replace("This site", searchParams.get("from"));
+    document.querySelector("body").style.backgroundColor = "#6993ff";
+    const from = searchParams.get("from");
+    if (from && from !== "unknown")
+      document.querySelector(".hero h2").innerHTML = document
+        .querySelector(".hero h2")
+        .innerHTML.replace("This site", from);
   }
 
   const redirectUrls = document.querySelectorAll('input[name="redirect-url"]');
