@@ -22,10 +22,17 @@ img {
   padding: 5rem 2rem;
 }
 
-.hero {
+.hero:not([hidden]) {
   background-color: var(--yellow);
   margin-top: 5rem;
+  padding: 5rem 0;
   min-height: calc(100vh - 5rem);
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.hero .container {
+  padding: 0 2rem;
 }
 
 .hero h2 {

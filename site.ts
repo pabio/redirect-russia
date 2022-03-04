@@ -1,14 +1,21 @@
 window.addEventListener("DOMContentLoaded", () => {
   const searchParams = new URLSearchParams(window.location.search);
   if (searchParams.has("from")) {
-    document.querySelector(".hero").removeAttribute("hidden");
+    [...document.querySelectorAll(".hero")].map((el) =>
+      el.removeAttribute("hidden")
+    );
     document.querySelector("main").setAttribute("hidden", "hidden");
     document.querySelector("body").style.backgroundColor = "#6993ff";
     const from = searchParams.get("from");
     if (from && from !== "unknown")
-      document.querySelector(".hero h2").innerHTML = document
-        .querySelector(".hero h2")
-        .innerHTML.replace("This site", from);
+      document
+        .querySelectorAll(".hero h2")
+        .forEach(
+          (el) =>
+            (el.innerHTML = el.innerHTML
+              .replace("This site", from)
+              .replace("Этот сайт", from))
+        );
   }
 
   const redirectUrls = document.querySelectorAll('input[name="redirect-url"]');
