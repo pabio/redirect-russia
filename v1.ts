@@ -131,7 +131,7 @@ var redirectRussia = () => {
     // Ignore errors if we're unable to fetch
     .catch(() => undefined)
     .then(() => {
-      if (countryCode === "RU") return redirect();
+      if (countryCode === "ru") return redirect();
 
       try {
         // Set in session storage so we don't have to compute again
