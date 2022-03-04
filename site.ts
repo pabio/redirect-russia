@@ -50,7 +50,7 @@ window.addEventListener("DOMContentLoaded", () => {
         : ""
     }${
       showDomain === "no" ? ` data-hide-domain="hide"` : ""
-    } async integrity="sha384-7eCSZggA5dvBgailUQh//+IinV8dfWf7/6yuq6jzyBq6zc5/N0g5UASeuPfxAUx8" crossorigin="anonymous"&gt;&lt;/script&gt;`;
+    } async integrity="sha384-K4/XEYup4kNv/qt2ucIwIH2wLT9I+z3s17CHQNMBB2/E8/Kw2VYsXQKB/7kylubA" crossorigin="anonymous"&gt;&lt;/script&gt;`;
   };
 
   redirectUrls.forEach((input) =>
