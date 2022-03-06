@@ -12,7 +12,7 @@ window.addEventListener("DOMContentLoaded", () => {
         .querySelectorAll(".hero h2")
         .forEach(
           (el) =>
-            (el.innerHTML = el.innerHTML
+            (el.textContent = el.innerHTML
               .replace("This site", from)
               .replace("Этот сайт", from))
         );
