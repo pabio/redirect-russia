@@ -88,7 +88,7 @@ var redirectRussia = () => {
       "Asia/Sakhalin",
       "Asia/Srednekolymsk",
       "Asia/Tomsk",
-      "Asia/Ust",
+      "Asia/Ust-Nera",
       "Asia/Vladivostok",
       "Asia/Yakutsk",
       "Asia/Yekaterinburg",
